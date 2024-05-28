@@ -8,12 +8,12 @@ import { heroes } from "../data/heroes";
 //   return console.log(resultado);
 // };
 
-const getHeroeById = (id) => heroes.find((heroes) => heroes.id === id);
+export const getHeroeById = (id) => heroes.find((heroes) => heroes.id === id);
 
-console.log(getHeroeById(5));
+// console.log(getHeroeById(5));
 
 //Find solo regresa un resultado y como queremos todos los resuktados utilizamos filter
-const getHeroeByOwners = (owner) =>
+export const getHeroeByOwners = (owner) =>
   heroes.filter((heroes) => heroes.owner === owner);
 
-console.log(getHeroeByOwners("Marvel"));
+// console.log(getHeroeByOwners("Marvel"));
