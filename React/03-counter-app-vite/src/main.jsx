@@ -4,6 +4,6 @@ import HelloWorldApp from "./HelloWorldApp";
 import "./index.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HelloWorldApp />
+    <HelloWorldApp title="hola soy zepeda" subTitle={12} />
   </React.StrictMode>
 );
