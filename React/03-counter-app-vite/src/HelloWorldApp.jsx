@@ -3,7 +3,7 @@ import { FirstApp } from "./FirstApp";
 function HelloWorldApp() {
   return (
     <>
-      <h1>Hello World</h1>
+      <h1>Enrique Zepeda</h1>
       <FirstApp />
     </>
   );
