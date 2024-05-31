@@ -8,6 +8,18 @@ export const GifExpertApp = () => {
     //para agregar una nueva categoria al arreglo al final
     // setCategories([...categories, "valorant"]);
     //para agregar una nueva categoria al arreglo al inicio
+    // setCategories([newCategory, ...categories]);
+
+    //Validar si una categoria es unica de manera que puede tener el mismo nombre pero con minusculas o mayusculas
+    // if (categories.includes(newCategory)) return;
+    //No permite el mismo nombre
+    if (
+      categories.some(
+        (category) => category.toLowerCase() === newCategory.toLowerCase()
+      )
+    )
+      return;
+
     console.log(newCategory);
     setCategories([newCategory, ...categories]);
   };
