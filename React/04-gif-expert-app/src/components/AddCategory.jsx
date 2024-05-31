@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const AddCategory = ({ setCategories }) => {
+export const AddCategory = ({ onNewCategory }) => {
   const [inputValue, setInputValue] = useState("");
   const onInputChange = (e) => {
     // console.log(e.target.value);
@@ -15,7 +15,10 @@ export const AddCategory = ({ setCategories }) => {
     // Esto lo hice mandandole tambien las categorias por prop pero se puede evitar
     // setCategories([inputValue, ...categories]);
     //Asi se usa la funcion sin depender del prop de categorias
-    setCategories((categories) => [inputValue, ...categories]);
+    // setCategories((categories) => [inputValue, ...categories]);
+
+    //esto es solo mandanlo los props la padre
+    onNewCategory(inputValue.trim());
     setInputValue("");
   };
   return (
