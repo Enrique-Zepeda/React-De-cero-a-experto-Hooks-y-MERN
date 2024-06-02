@@ -6,11 +6,11 @@ exports[`Pruebas en GifItem Probando snapshot 1`] = `
     class="card"
   >
     <img
-      alt="titulo"
-      src="https://www.algo.com"
+      alt="Titulo"
+      src="https://www.algo.com/"
     />
     <p>
-      titulo
+      Titulo
     </p>
   </div>
 </div>
