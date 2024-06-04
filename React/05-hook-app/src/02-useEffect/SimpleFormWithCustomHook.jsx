@@ -3,7 +3,7 @@ import { useForm } from "../hooks/useForm";
 
 export function FormWithCustomHook() {
   // Llamamos al custom hook y le pasamos nuestros valores iniciales y estraemos el fomulario y el input
-  const { onInputChange, formState } = useForm({
+  const { onInputChange, formState, onReset } = useForm({
     username: "",
     email: "",
     password: "",
@@ -39,6 +39,9 @@ export function FormWithCustomHook() {
         value={password}
         onChange={onInputChange}
       />
+      <button className="btn btn-primary mt-2" onClick={onReset}>
+        Reset
+      </button>
     </>
   );
 }
