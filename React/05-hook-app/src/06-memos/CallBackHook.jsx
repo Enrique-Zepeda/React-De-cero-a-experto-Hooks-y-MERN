@@ -4,9 +4,9 @@ import { ShowIncrement } from "./ShowIncrement";
 export function CallBackHook() {
   const [counter, setCounter] = useState(1);
 
-  const incrementFather = useCallback(() => {
+  const incrementFather = useCallback((value) => {
     console.log("setCounter(counter + 1);");
-    setCounter((value) => value + 1);
+    setCounter((c) => c + value);
   }, []);
 
   return (
