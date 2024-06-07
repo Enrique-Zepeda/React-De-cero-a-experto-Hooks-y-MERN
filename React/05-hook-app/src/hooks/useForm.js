@@ -9,7 +9,6 @@ export function useForm(initialForm = {}) {
 
     setFormState({
       ...formState,
-
       [name]: value,
     });
   };

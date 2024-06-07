@@ -6,16 +6,17 @@
 // import { FocusScreen } from "./04-useRef/FocusScreen";
 // import { Layout } from "./05-useLayoutEffect/Layout";
 // import { Memorize } from "./06-memos/Memorize";
-
-// import { CallBackHook } from "./06-memos/CallBackHook";
-import { Padre } from "./07-tarea-memo/Padre";
-
 // import { MemoHook } from "./06-memos/MemoHook";
+// import { CallBackHook } from "./06-memos/CallBackHook";
+// import { Padre } from "./07-tarea-memo/Padre";
+// import "./08-useReducer/intro-reducer";
+import { TodoApp } from "./08-useReducer/TodoApp";
+
 export const HooksApp = () => {
   return (
     <>
       <h1>HooksApp</h1>
-      <Padre />
+      <TodoApp />
     </>
   );
 };
