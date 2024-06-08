@@ -1,30 +1,10 @@
-import { useReducer } from "react";
-import { todoReducer } from "./todoReducer";
 import { TodoList } from "./TodoList";
 import { TodoAdd } from "./TodoAdd";
-const initialState = [
-  {
-    id: new Date().getTime(),
-    description: "Aprender React",
-    done: false,
-  },
-  {
-    id: new Date().getTime() * 3,
-    description: "Aprender JavaScript",
-    done: false,
-  },
-];
+import { useTodo } from "../hooks/useTodo";
 
 export function TodoApp() {
-  const [todos, dispatch] = useReducer(todoReducer, initialState);
-  const onNewTodo = (todo) => {
-    // console.log({ todo });
-    const action = {
-      type: "[TODO]: Add Todo",
-      payload: todo,
-    };
-    dispatch(action);
-  };
+  const { todos, handleDeleteTodo, onNewTodo, handleTogleTodo } = useTodo();
+
   return (
     <>
       <h1>
@@ -33,7 +13,11 @@ export function TodoApp() {
       <hr />
       <div className="row">
         <div className="col-7">
-          <TodoList todos={todos} />
+          <TodoList
+            todos={todos}
+            onDeleteTodo={handleDeleteTodo}
+            onTogleTodo={handleTogleTodo}
+          />
         </div>
 
         <div className="col-5">
