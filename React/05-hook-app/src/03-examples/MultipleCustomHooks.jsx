@@ -1,36 +1,28 @@
-import { useCounter, useFetch } from "../hooks";
-import { LoadingMessage } from "./LoadingMessage";
-import PokemonCard from "./PokemonCard";
+import { render, screen } from "@testing-library/react";
+import { MultipleCustomHooks } from "../../src/03-examples/MultipleCustomHooks";
+import { useFetch } from "../../src/hooks/useFetch";
 
-export function MultipleCustomHooks() {
-  const { increment, decrement, counter } = useCounter(1);
-  const { data, error, isLoading } = useFetch(
-    `https://pokeapi.co/api/v2/pokemon/${counter}`
-  );
-  return (
-    <>
-      <h1>Pokemon Info</h1>
-      <hr />
-      <p>Poekmon</p>
-      {isLoading ? (
-        <LoadingMessage />
-      ) : (
-        <PokemonCard id={data.id} name={data.name} sprites={data.sprites} />
-      )}
-      {/* Hacemos esto para poder ver el objeto que retorna la data */}
-      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+jest.mock("../../src/hooks/useFetch");
 
-      {/* Ponemos el signo de interrogacion porque al principio en el hook no tenemos data y el signo nos sirve para preguntar si existe la data y si existe se imprime y si no no */}
+describe("Pruebas en el componente <MultipleCustomHooks />", () => {
+  test("Debe de mostrar el componente por defecto", () => {
+    useFetch.mockReturnValue({ data: null, error: null, isLoading: true });
+    render(<MultipleCustomHooks />);
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.getByText("Pokemon Info")).toBeInTheDocument();
+    // screen.debug();
+  });
 
-      <button
-        className="btn btn-primary mt-2"
-        onClick={counter > 1 ? decrement : null}
-      >
-        Anterior
-      </button>
-      <button className="btn btn-primary mt-2" onClick={increment}>
-        Siguiente
-      </button>
-    </>
-  );
-}
+  test("Debe de mostrar un pokemon", () => {
+    const mockData = {
+      id: 1,
+      name: "Bulbasaur",
+      sprites: { front_default: "https://example.com/bulbasaur.png" },
+    };
+    useFetch.mockReturnValue({ data: mockData, error: null, isLoading: false });
+    render(<MultipleCustomHooks />);
+    expect(screen.getByText("Pokemon Info")).toBeInTheDocument();
+    expect(screen.getByText("Bulbasaur")).toBeInTheDocument();
+    // screen.debug();
+  });
+});
