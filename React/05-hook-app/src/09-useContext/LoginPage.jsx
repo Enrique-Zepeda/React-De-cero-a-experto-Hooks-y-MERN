@@ -10,11 +10,12 @@ export function LoginPage() {
       <h1>
         LoginPage <small>{user?.name}</small>
       </h1>
-      <pre>{JSON.stringify(user, null, 3)}</pre>
+      <pre aria-label="pre">{JSON.stringify(user, null, 3)}</pre>
       {/* <p>{user.id}</p>
       <p>{user.name}</p>
       <p>{user.email}</p> */}
       <button
+        aria-label="boton"
         onClick={() =>
           setUser({ id: 123, name: "Enrique Adair", email: "kike@gmail.com" })
         }

@@ -7,7 +7,7 @@ export function HomePage() {
   return (
     <>
       <h1>HomePage</h1>
-      <pre>{JSON.stringify(user, null, 3)}</pre>
+      <pre aria-label="pre">{JSON.stringify(user, null, 3)}</pre>
     </>
   );
 }
