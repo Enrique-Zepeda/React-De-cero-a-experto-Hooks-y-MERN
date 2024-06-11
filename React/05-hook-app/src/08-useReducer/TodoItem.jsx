@@ -10,7 +10,11 @@ export default function TodoItem({ todo, onDeleteTodo, onTogleTodo }) {
       >
         {todo.description}
       </span>
-      <button className="btn btn-danger" onClick={() => onDeleteTodo(todo.id)}>
+      <button
+        aria-label="button"
+        className="btn btn-danger"
+        onClick={() => onDeleteTodo(todo.id)}
+      >
         Borrar
       </button>
     </li>
