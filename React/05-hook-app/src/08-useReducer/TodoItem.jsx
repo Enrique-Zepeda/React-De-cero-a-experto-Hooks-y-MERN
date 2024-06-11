@@ -6,6 +6,7 @@ export default function TodoItem({ todo, onDeleteTodo, onTogleTodo }) {
           todo.done ? "text-decoration-line-through" : ""
         }`}
         onClick={() => onTogleTodo(todo.id)}
+        aria-label="span"
       >
         {todo.description}
       </span>
