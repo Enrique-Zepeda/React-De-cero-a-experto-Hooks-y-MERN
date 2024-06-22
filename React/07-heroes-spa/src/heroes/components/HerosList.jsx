@@ -1,8 +1,9 @@
+import { useMemo } from "react";
 import { getHeroesByPublisher } from "../helpers/getHeroesByPublisher";
 import { HeroesCard } from "./HeroesCard";
 
 export const HerosList = ({ publisher }) => {
-  const heroes = getHeroesByPublisher(publisher);
+  const heroes = useMemo(() => getHeroesByPublisher(publisher), [publisher]);
   //   console.log(heroes);
 
   return (
