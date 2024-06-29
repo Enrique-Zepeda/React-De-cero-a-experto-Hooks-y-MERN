@@ -14,11 +14,11 @@ export default function SearchPage() {
   // console.log(location);
 
   const { q = "" } = queryString.parse(location.search);
-  console.log(q);
+  // console.log(q);
 
   const heroes = getHeroesByName(q);
-  const showSearch = q.length === 0;
-  const showError = q.length > 0 && heroes.length === 0;
+  // const showSearch = q.length === 0;
+  // const showError = q.length > 0 && heroes.length === 0;
 
   const onSearchSubmit = (e) => {
     e.preventDefault();
@@ -57,7 +57,7 @@ export default function SearchPage() {
           <h4>Results</h4>
           <hr />
 
-          {/* {q === "" ? (
+          {q === "" ? (
             <div className="alert alert-primary">Search a Hero</div>
           ) : (
             heroes.length === 0 && (
@@ -69,9 +69,9 @@ export default function SearchPage() {
 
           {heroes.map((hero) => (
             <HeroesCard key={hero.id} hero={hero} />
-          ))} */}
+          ))}
 
-          <div
+          {/* <div
             className="alert alert-primary"
             style={{ display: showSearch ? "" : "none" }}
           >
@@ -83,7 +83,7 @@ export default function SearchPage() {
             style={{ display: showError ? "" : "none" }}
           >
             No hero with <b>{q}</b>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

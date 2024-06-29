@@ -7,16 +7,18 @@ export const LoginPage = () => {
 
   const navigate = useNavigate();
 
+  const lastPath = localStorage.getItem("lastPath") || "/";
+
   const onLogin = () => {
     login("Kike Zepeda");
-    navigate("/", {
+    navigate(lastPath, {
       replace: true,
     });
   };
 
   return (
     <div className="container mt-5">
-      <h1>login</h1>
+      <h1>Login</h1>
       <hr />
       <button className="btn btn-primary" onClick={onLogin}>
         Login
