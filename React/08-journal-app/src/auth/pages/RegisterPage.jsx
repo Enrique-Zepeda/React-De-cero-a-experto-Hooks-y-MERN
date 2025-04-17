@@ -1,10 +1,17 @@
 import { Link as RouterLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Alert,
+  Button,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { AuthLayout } from "../layout/AuthLayout";
-import { useForm } from "../../hooks/useForm";
-import { useState } from "react";
-import { startCreatingUser } from "../../store/auth/thunks";
+import { useForm } from "../../hooks";
+import { useMemo, useState } from "react";
+import { startCreatingUserWithEmailPassword } from "../../store/auth/thunks";
 
 const formData = {
   email: "",
@@ -13,15 +20,24 @@ const formData = {
 };
 
 const formValidations = {
-  email: [(value) => value.includes("@"), "El correo debe de tener un @"],
+  email: [(value) => value.includes("@"), "El email debe de tener un @"],
   password: [
     (value) => value.length >= 6,
     "El password debe de tener mas de 6 letras",
   ],
-  displayName: [(value) => value.length >= 1, "El nombre es obligatorio"],
+  displayName: [
+    (value) => value.length >= 3,
+    "El nombre debe de tener mas de tres caracteres",
+  ],
 };
 
 export const RegisterPage = () => {
+  const { status, errorMessage } = useSelector((state) => state.auth);
+  console.log("ErrorMesagge", errorMessage);
+  const isCheckingAuthentication = useMemo(
+    () => status === "checking",
+    [status]
+  );
   const dispatch = useDispatch();
 
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -30,80 +46,96 @@ export const RegisterPage = () => {
     displayName,
     email,
     password,
-    formState,
     onInputChange,
-    displayNameValid,
+    formState,
+    isFormValid,
     emailValid,
     passwordValid,
-    isFormValid,
+    displayNameValid,
   } = useForm(formData, formValidations);
+
+  // console.log(displayNameValid);
 
   const onSubmit = (e) => {
     e.preventDefault();
     setFormSubmitted(true);
-
     if (!isFormValid) return;
-
-    // console.log(formState);
-    dispatch(startCreatingUser(formState));
+    console.log(formState);
+    dispatch(startCreatingUserWithEmailPassword(formState));
   };
 
   return (
-    <AuthLayout title="Registro">
-      {/* <h1>FormValid {isFormValid ? "valido" : "no valido"}</h1> */}
-      <form onSubmit={onSubmit}>
-        <Grid container>
-          <Grid item xs={12} sx={{ mt: 2 }}>
-            <TextField
-              label="Nombre Completo"
-              type="text"
-              placeholder="Nombre Completo"
-              fullWidth
-              name="displayName"
-              value={displayName}
-              onChange={onInputChange}
-              error={!!displayNameValid && formSubmitted}
-              helperText={displayNameValid}
-            />
-          </Grid>
-          <Grid item xs={12} sx={{ mt: 2 }}>
-            <TextField
-              label="Correo"
-              type="email"
-              placeholder="correo@google.com"
-              fullWidth
-              name="email"
-              value={email}
-              onChange={onInputChange}
-              error={!!emailValid && formSubmitted}
-              helperText={emailValid}
-            />
-          </Grid>
-          <Grid item xs={12} sx={{ mt: 2 }}>
-            <TextField
-              label="Contraseña"
-              type="password"
-              placeholder="Contraseña"
-              fullWidth
-              name="password"
-              value={password}
-              onChange={onInputChange}
-              error={!!passwordValid && formSubmitted}
-              helperText={passwordValid}
-            />
-          </Grid>
+    <AuthLayout title="Register">
+      {/* <h1>FormValid {isFormValid ? "Valido" : "Incorrecto"}</h1> */}
+      <form
+        onSubmit={onSubmit}
+        className="animate__animated animate__fadeIn animate__faster"
+      >
+        <Grid container spacing={2}>
+          <TextField
+            fullWidth
+            id="displayName"
+            label="Nombre Completo"
+            name="displayName"
+            placeholder="Tu nombre"
+            type="text"
+            variant="outlined"
+            autoComplete="o
+            ff"
+            value={displayName}
+            onChange={onInputChange}
+            error={!!displayNameValid && formSubmitted}
+            helperText={formSubmitted && displayNameValid}
+          />
+          <TextField
+            fullWidth
+            id="email"
+            label="Email"
+            name="email"
+            placeholder="correo@google.com"
+            type="email"
+            variant="outlined"
+            autoComplete="off"
+            value={email}
+            onChange={onInputChange}
+            error={!!emailValid && formSubmitted}
+            helperText={formSubmitted && emailValid}
+          />
 
-          <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
-            <Grid item xs={12}>
-              <Button type="submit" variant="contained" fullWidth>
-                Crear Cuenta
+          <TextField
+            fullWidth
+            id="password"
+            label="Password"
+            name="password"
+            placeholder="password"
+            type="password"
+            variant="outlined"
+            autoComplete="off"
+            value={password}
+            onChange={onInputChange}
+            error={!!passwordValid && formSubmitted}
+            helperText={formSubmitted && passwordValid}
+          />
+
+          <Grid container size={12} spacing={2}>
+            <Grid size={{ xs: 12 }} display={!!errorMessage ? "" : "none"}>
+              <Alert severity="error">{errorMessage}</Alert>
+            </Grid>
+
+            <Grid size={{ xs: 12 }}>
+              <Button
+                disabled={isCheckingAuthentication}
+                type="submit"
+                fullWidth
+                variant="contained"
+              >
+                Register
               </Button>
             </Grid>
           </Grid>
-
-          <Grid container direction="row" justifyContent="end">
-            <Typography sx={{ mr: 1 }}>Ya tienes cuenta?</Typography>
-            <Link component={RouterLink} color="inherit" to="/auth/login">
+          <Grid container direction="row" justifyContent="end" size={12}>
+            <Typography sx={{ mr: 1 }}>¿Ya tienes una cuenta?</Typography>
+            <Link color="inherit" component={RouterLink} to="/auth/login">
               Ingresar
             </Link>
           </Grid>
